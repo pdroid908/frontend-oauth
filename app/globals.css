@@ -1,26 +1,474 @@
 @import "tailwindcss";
 
+/* =========================
+   THEME
+========================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #060816;
+  --foreground: #f5f5f5;
+
+  --primary: #00f7ff;
+  --secondary: #8b5cf6;
+  --danger: #ff3864;
+
+  --card: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =========================
+   BODY
+========================= */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at top, #10183a 0%, #060816 40%, #04040b 100%);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background Grid */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background-image:
+      linear-gradient(rgba(0,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,.04) 1px, transparent 1px);
+
+  background-size:40px 40px;
+
+  pointer-events:none;
+  animation:gridMove 12s linear infinite;
+  z-index:-2;
+}
+
+/* Glow */
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+      radial-gradient(circle at 20% 20%, rgba(0,255,255,.18), transparent 40%),
+      radial-gradient(circle at 80% 40%, rgba(168,85,247,.18), transparent 40%);
+  filter:blur(80px);
+  z-index:-3;
+}
+
+@keyframes gridMove{
+  from{
+      transform:translateY(0);
+  }
+  to{
+      transform:translateY(40px);
+  }
+}
+
+
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#00f7ff;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0b1025;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.cyber-card{
+    background:rgba(255,255,255,.04);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    transition:.3s;
+}
+
+.cyber-card:hover{
+    border-color:#00f7ff;
+    box-shadow:
+        0 0 30px rgba(0,247,255,.2),
+        inset 0 0 20px rgba(0,247,255,.08);
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.cyber-btn{
+    position:relative;
+    overflow:hidden;
+
+    padding:12px 28px;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #00f7ff,
+        #7c3aed
+    );
+
+    color:white;
+
+    font-weight:700;
+
+    transition:.25s;
+
+    cursor:pointer;
+}
+
+.cyber-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+      0 0 15px #00f7ff,
+      0 0 35px rgba(0,247,255,.5);
+
+}
+
+.cyber-btn:active{
+
+    transform:scale(.94);
+
+}
+
+/* Ripple Effect */
+
+.cyber-btn::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:12px;
+    height:12px;
+
+    background:white;
+
+    border-radius:50%;
+
+    transform:scale(0);
+
+    opacity:.45;
+
+    pointer-events:none;
+
+}
+
+.cyber-btn:active::after{
+
+    left:50%;
+    top:50%;
+
+    animation:ripple .55s ease-out;
+
+}
+
+@keyframes ripple{
+
+    from{
+
+        transform:
+            translate(-50%,-50%)
+            scale(0);
+
+        opacity:.6;
+
+    }
+
+    to{
+
+        transform:
+            translate(-50%,-50%)
+            scale(18);
+
+        opacity:0;
+
+    }
+
+}
+
+/* =========================
+   LOADING BUTTON
+========================= */
+
+.cyber-loading{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(6px);
+
+    z-index:99999;
+}
+
+.cyber-loading-box{
+
+    width:350px;
+
+    padding:35px;
+
+    text-align:center;
+
+    border-radius:18px;
+
+    background:#081019;
+
+    border:1px solid #00ffff55;
+
+    box-shadow:
+      0 0 30px #00ffff33;
+}
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.cyber-input{
+
+    width:100%;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    padding:14px;
+
+    border-radius:12px;
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+.cyber-input:focus{
+
+    outline:none;
+
+    border-color:#00f7ff;
+
+    box-shadow:
+        0 0 15px rgba(0,247,255,.4);
+
+}
+
+/* =========================
+   TEXT GLOW
+========================= */
+
+.cyber-title{
+
+    color:#fff;
+
+    text-shadow:
+
+        0 0 8px #00f7ff,
+        0 0 18px #00f7ff;
+
+}
+
+/* =========================
+   FADE ANIMATION
+========================= */
+
+.fade-up{
+
+    animation:fadeUp .7s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+/* ===========================
+   CYBER NOTIFICATION
+=========================== */
+
+.cyber-toast-overlay{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(5px);
+
+    z-index:9999;
+
+    animation:fadeIn .25s;
+}
+
+.cyber-toast{
+
+    width:380px;
+    max-width:90%;
+
+    background:#09111d;
+
+    border:1px solid rgba(0,255,255,.25);
+
+    border-radius:16px;
+
+    padding:26px;
+
+    text-align:center;
+
+    box-shadow:
+        0 0 25px rgba(0,255,255,.25),
+        inset 0 0 25px rgba(0,255,255,.05);
+
+    animation:popup .25s ease;
+
+}
+
+.cyber-toast.success{
+
+    border-color:#00ff88;
+
+    box-shadow:
+        0 0 25px rgba(0,255,150,.45);
+
+}
+
+.cyber-toast.error{
+
+    border-color:#ff2d75;
+
+    box-shadow:
+        0 0 25px rgba(255,0,90,.45);
+
+}
+
+.cyber-toast.loading{
+
+    border-color:#00f7ff;
+
+}
+
+.cyber-toast-title{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+    letter-spacing:2px;
+
+}
+
+.cyber-toast-message{
+
+    color:#d1d5db;
+
+}
+
+.cyber-spinner{
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    border:4px solid rgba(255,255,255,.15);
+
+    border-top-color:#00ffff;
+
+    margin:auto;
+    margin-bottom:18px;
+
+    animation:spin .8s linear infinite;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+        transform:scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:scale(1);
+
+    }
+
+}
+
+@keyframes fadeIn{
+
+    from{opacity:0}
+    to{opacity:1}
+
 }
