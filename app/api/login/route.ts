@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     }
 
     
-    const response = await fetch("https://pasdaoji-backend-oauth.hf.space/login", {
+    const response = await fetch("https://pasdaoiji-backend-oauth.hf.space/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
