@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { forgotPassword } from "@/app/api/forgot-password/route";
+import { forgotPassword } from "@/app/service/auth";
 import { validateRegister } from "@/app/api/security/security";
 
 type ToastType = "success" | "error" | "loading";
@@ -36,10 +36,15 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await forgotPassword(email);
-      showToast("success", "Berhasil", "Link reset telah dikirim ke email Anda");
+      showToast(
+        "success",
+        "Berhasil",
+        "Link reset telah dikirim ke email Anda",
+      );
       setIsForgotMode(false);
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : "Gagal mengirim link reset";
+      const errorMessage =
+        err instanceof Error ? err.message : "Gagal mengirim link reset";
       showToast("error", "Gagal", errorMessage);
     } finally {
       setIsLoading(false);
@@ -48,7 +53,7 @@ export default function LoginPage() {
 
   const handleLogin = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    
+
     const validation = validateRegister(username, password);
     if (!validation.success) {
       showToast("error", "Input Tidak Valid", validation.message);
@@ -70,7 +75,11 @@ export default function LoginPage() {
       if (res.ok) {
         showToast("success", "Success", "Login berhasil!");
       } else {
-        showToast("error", "Login Gagal", data.message || "Username atau password salah");
+        showToast(
+          "error",
+          "Login Gagal",
+          data.message || "Username atau password salah",
+        );
       }
     } catch (err: unknown) {
       showToast("error", "Error", "Terjadi kesalahan koneksi ke server");
@@ -89,7 +98,9 @@ export default function LoginPage() {
         {isForgotMode ? (
           <form onSubmit={handleForgotPassword} className="space-y-6">
             <div>
-              <label className="block text-sm mb-2 opacity-80">Masukkan Email</label>
+              <label className="block text-sm mb-2 opacity-80">
+                Masukkan Email
+              </label>
               <input
                 type="email"
                 className="cyber-input"
@@ -98,12 +109,16 @@ export default function LoginPage() {
                 required
               />
             </div>
-            <button type="submit" className="cyber-btn w-full" disabled={isLoading}>
+            <button
+              type="submit"
+              className="cyber-btn w-full"
+              disabled={isLoading}
+            >
               {isLoading ? "SENDING..." : "KIRIM LINK RESET"}
             </button>
-            <button 
-              type="button" 
-              onClick={() => setIsForgotMode(false)} 
+            <button
+              type="button"
+              onClick={() => setIsForgotMode(false)}
               className="text-xs opacity-60 w-full underline"
             >
               Kembali ke Login
@@ -132,15 +147,19 @@ export default function LoginPage() {
               />
             </div>
 
-            <button 
-              type="button" 
-              onClick={() => setIsForgotMode(true)} 
+            <button
+              type="button"
+              onClick={() => setIsForgotMode(true)}
               className="text-xs opacity-60 underline"
             >
               Lupa password?
             </button>
 
-            <button type="submit" className="cyber-btn w-full" disabled={isLoading}>
+            <button
+              type="submit"
+              className="cyber-btn w-full"
+              disabled={isLoading}
+            >
               {isLoading ? "PROCESSSING..." : "MASUK"}
             </button>
           </form>

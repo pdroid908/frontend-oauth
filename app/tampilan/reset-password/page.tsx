@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { resetPassword } from "@/app/api/forgot-password/route";
+import { resetPassword } from "@/app/service/auth";
 
 function ResetForm() {
   const searchParams = useSearchParams();
@@ -17,13 +17,13 @@ function ResetForm() {
       await resetPassword(token, password);
       alert("Password berhasil diperbarui!");
       window.location.href = "/tampilan/login"; // Arahkan kembali ke login
-    }catch (err: unknown) {
-  if (err instanceof Error) {
-    alert(err.message);
-  } else {
-    alert("Terjadi kesalahan yang tidak diketahui");
-  }
-}finally {
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert(err.message);
+      } else {
+        alert("Terjadi kesalahan yang tidak diketahui");
+      }
+    } finally {
       setIsLoading(false);
     }
   };
