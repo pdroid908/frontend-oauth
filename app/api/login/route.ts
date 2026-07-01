@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     }
 
     
-    const response = await fetch("https://pasdaojij-backend-oauth.hf.space/login", {
+    const response = await fetch("https://pasdaoji-backend-oauth.hf.space/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     return finalResponse;
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: "Terjadi kesalahan internal" },
+      { success: false, message: "Invalid Data" },
       { status: 500 }
     );
   }

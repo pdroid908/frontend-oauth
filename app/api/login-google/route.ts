@@ -7,14 +7,14 @@ export async function GET(req: Request) {
 
   // JIKA TIDAK ADA CODE: User baru mau login, arahkan ke Go
   if (!code) {
-    return NextResponse.redirect("https://pasdaojij-backend-oauth.hf.space/auth/google");
+    return NextResponse.redirect("https://pasdaoji-backend-oauth.hf.space/auth/google");
   }
 
   // JIKA ADA CODE: Ini adalah callback dari Google yang diteruskan oleh Go
   // Kita fetch ke Go untuk verifikasi dan mendapatkan token
   try {
     const response = await fetch(
-      `https://pasdaojij-backend-oauth.hf.space/auth/google/callback?code=${code}&state=${state}`,
+      `https://pasdaoji-backend-oauth.hf.space/auth/google/callback?code=${code}&state=${state}`,
       { method: "GET" }
     );
 
