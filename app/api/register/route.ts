@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const response = await fetch("http://localhost:8080/register", {
+    const response = await fetch("https://pasdaojij-backend-oauth.hf.space/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

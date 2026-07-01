@@ -11,7 +11,7 @@ export const forgotPassword = async (email: string) => {
     throw new Error("Format email tidak valid");
   }
 
-  const response = await fetch("http://localhost:8080/forgot-password", {
+  const response = await fetch("https://pasdaojij-backend-oauth.hf.space/forgot-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email }),
@@ -32,7 +32,7 @@ export const resetPassword = async (token: string, new_password: string) => {
     throw new Error(validation.message);
   }
 
-  const response = await fetch("http://localhost:8080/reset-password", {
+  const response = await fetch("https://pasdaojij-backend-oauth.hf.space/reset-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token, new_password }),

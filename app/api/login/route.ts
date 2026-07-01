@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { validateRegister } from "@/app/api/security/security";
 export const runtime = 'edge';
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -23,7 +24,7 @@ export async function POST(request: Request) {
     }
 
     
-    const response = await fetch("http://localhost:8080/login", {
+    const response = await fetch("https://pasdaojij-backend-oauth.hf.space/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
