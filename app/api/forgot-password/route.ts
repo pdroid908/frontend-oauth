@@ -1,6 +1,6 @@
 import { validateRegister } from "@/app/api/security/security";
 
-
+export const runtime = 'edge';
 
 import validator from "validator";
 

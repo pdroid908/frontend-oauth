@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import validator from "validator";
-
+export const runtime = 'edge';
 import {
   sanitize,
   validateRegister,

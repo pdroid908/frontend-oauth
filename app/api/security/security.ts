@@ -1,6 +1,8 @@
 import { z } from "zod";
 import validator from "validator";
 
+export const runtime = 'edge';
+
 /**
  * =========================
  * CONFIG LIMITS

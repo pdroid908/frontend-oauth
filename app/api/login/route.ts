@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { validateRegister } from "@/app/api/security/security";
-
+export const runtime = 'edge';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
