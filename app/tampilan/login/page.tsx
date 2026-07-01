@@ -88,93 +88,100 @@ export default function LoginPage() {
     }
   };
 
-  return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <div className="cyber-card p-8 w-full max-w-md fade-up">
-        <h1 className="cyber-title text-3xl text-center mb-8 font-bold">
-          {isForgotMode ? "RESET PASSWORD" : "LOGIN"}
-        </h1>
+  <div className="flex min-h-screen items-center justify-center p-4">
+  <div className="cyber-card p-8 w-full max-w-md fade-up">
+    {/* Tombol Back to Root */}
+    <button
+      type="button"
+      onClick={() => window.location.href = '/'}
+      className="text-xs mb-4 opacity-50 hover:opacity-100 transition-opacity flex items-center"
+    >
+      ← Kembali ke Beranda
+    </button>
 
-        {isForgotMode ? (
-          <form onSubmit={handleForgotPassword} className="space-y-6">
-            <div>
-              <label className="block text-sm mb-2 opacity-80">
-                Masukkan Email
-              </label>
-              <input
-                type="email"
-                className="cyber-input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="cyber-btn w-full"
-              disabled={isLoading}
-            >
-              {isLoading ? "SENDING..." : "KIRIM LINK RESET"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsForgotMode(false)}
-              className="text-xs opacity-60 w-full underline"
-            >
-              Kembali ke Login
-            </button>
-          </form>
-        ) : (
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label className="block text-sm mb-2 opacity-80">Username</label>
-              <input
-                type="text"
-                className="cyber-input"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm mb-2 opacity-80">Password</label>
-              <input
-                type="password"
-                className="cyber-input"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+    <h1 className="cyber-title text-3xl text-center mb-8 font-bold">
+      {isForgotMode ? "RESET PASSWORD" : "LOGIN"}
+    </h1>
 
-            <button
-              type="button"
-              onClick={() => setIsForgotMode(true)}
-              className="text-xs opacity-60 underline"
-            >
-              Lupa password?
-            </button>
-
-            <button
-              type="submit"
-              className="cyber-btn w-full"
-              disabled={isLoading}
-            >
-              {isLoading ? "PROCESSSING..." : "MASUK"}
-            </button>
-          </form>
-        )}
-      </div>
-
-      {toast.show && (
-        <div className="cyber-toast-overlay">
-          <div className={`cyber-toast ${toast.type || ""}`}>
-            {toast.type === "loading" && <div className="cyber-spinner"></div>}
-            <div className="cyber-toast-title">{toast.title}</div>
-            <div className="cyber-toast-message">{toast.message}</div>
-          </div>
+    {isForgotMode ? (
+      <form onSubmit={handleForgotPassword} className="space-y-6">
+        <div>
+          <label className="block text-sm mb-2 opacity-80">
+            Masukkan Email
+          </label>
+          <input
+            type="email"
+            className="cyber-input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
-      )}
+        <button
+          type="submit"
+          className="cyber-btn w-full"
+          disabled={isLoading}
+        >
+          {isLoading ? "SENDING..." : "KIRIM LINK RESET"}
+        </button>
+        <button
+          type="button"
+          onClick={() => setIsForgotMode(false)}
+          className="text-xs opacity-60 w-full underline"
+        >
+          Kembali ke Login
+        </button>
+      </form>
+    ) : (
+      <form onSubmit={handleLogin} className="space-y-6">
+        <div>
+          <label className="block text-sm mb-2 opacity-80">Username</label>
+          <input
+            type="text"
+            className="cyber-input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm mb-2 opacity-80">Password</label>
+          <input
+            type="password"
+            className="cyber-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setIsForgotMode(true)}
+          className="text-xs opacity-60 underline"
+        >
+          Lupa password?
+        </button>
+
+        <button
+          type="submit"
+          className="cyber-btn w-full"
+          disabled={isLoading}
+        >
+          {isLoading ? "PROCESSSING..." : "MASUK"}
+        </button>
+      </form>
+    )}
+  </div>
+
+  {toast.show && (
+    <div className="cyber-toast-overlay">
+      <div className={`cyber-toast ${toast.type || ""}`}>
+        {toast.type === "loading" && <div className="cyber-spinner"></div>}
+        <div className="cyber-toast-title">{toast.title}</div>
+        <div className="cyber-toast-message">{toast.message}</div>
+      </div>
     </div>
-  );
+  )}
+</div>
 }
