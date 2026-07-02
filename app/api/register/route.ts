@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await fetch(
-      "https://oauth-go-backend.vercel.app/register",
+      "https://oauth-go-backend-one.vercel.app/register",
       {
         method: "POST",
         headers: {
