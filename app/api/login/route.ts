@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     }
 
     const response = await fetch(
-      "oauth-go-backend-one.vercel.app/login",
+      "https://oauth-go-backend-one.vercel.app/login",
       {
         method: "POST",
         headers: {
@@ -48,14 +48,15 @@ export async function POST(request: Request) {
     }
 
     // Jika sukses, kita harus meneruskan header 'Set-Cookie' dari Go ke browser
-    const responseHeaders = new Headers(response.headers);
-    const setCookie = responseHeaders.get("set-cookie");
-
+   
     const finalResponse = NextResponse.json(result, { status: 200 });
+    const setCookies = response.headers.getSetCookie();
 
-    if (setCookie) {
-      finalResponse.headers.set("set-cookie", setCookie);
-    }
+    if (setCookies && setCookies.length > 0) {
+  setCookies.forEach((cookie) => {
+    finalResponse.headers.append("set-cookie", cookie);
+  });
+}
 
     return finalResponse;
   } catch (error) {
