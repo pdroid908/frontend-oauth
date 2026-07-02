@@ -12,7 +12,7 @@ export const forgotPassword = async (email: string) => {
   }
 
   const response = await fetch(
-    "https://oauth-go-backend-one.vercel.app/forgot-password",
+    "http://localhost:8080/forgot-password",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,7 +35,7 @@ export const resetPassword = async (token: string, new_password: string) => {
   }
 
   const response = await fetch(
-    "https://oauth-go-backend-one.vercel.app/reset-password",
+    "http://localhost:8080/reset-password",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

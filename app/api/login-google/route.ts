@@ -9,14 +9,14 @@ export async function GET(req: Request) {
   // JIKA TIDAK ADA CODE: User baru mau login
   if (!code) {
     return NextResponse.redirect(
-      "https://oauth-go-backend-one.vercel.app/auth/google",
+      "oauth-go-backend-one.vercel.app/auth/google",
     );
   }
 
   try {
     // 1. Fetch ke Go Backend
     const response = await fetch(
-      `https://oauth-go-backend-one.vercel.app/auth/google/callback?code=${code}&state=${state}`,
+      `oauth-go-backend-one.vercel.app/auth/google/callback?code=${code}&state=${state}`,
       {
         method: "GET",
         // Penting: agar backend bisa mengirim cookie sesi jika ada

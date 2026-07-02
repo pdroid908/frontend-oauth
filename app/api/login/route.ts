@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     }
 
     const response = await fetch(
-      "https://oauth-go-backend-one.vercel.app/login",
+      "oauth-go-backend-one.vercel.app/login",
       {
         method: "POST",
         headers: {
