@@ -1,16 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import validator from "validator";
-export const runtime = 'edge';
-import {
-  sanitize,
-  validateRegister,
-} from "@/app/api/security/security";
+export const runtime = "edge";
+import { sanitize, validateRegister } from "@/app/api/security/security";
 
 export async function POST(req: NextRequest) {
   try {
-    
     const body = await req.json();
-
 
     const username = sanitize(body.username ?? "");
     const email = sanitize(body.email ?? "").toLowerCase();
@@ -22,7 +17,7 @@ export async function POST(req: NextRequest) {
           success: false,
           message: "Email tidak valid",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -34,22 +29,25 @@ export async function POST(req: NextRequest) {
           success: false,
           message: result.message,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    const response = await fetch("https://pasdaoiji-backend-oauth.hf.space/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      "https://oauth-go-backend.vercel.app/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: result.data.username,
+          email,
+          password: result.data.password,
+        }),
+        cache: "no-store",
       },
-      body: JSON.stringify({
-        username: result.data.username,
-        email,
-        password: result.data.password,
-      }),
-      cache: "no-store",
-    });
+    );
 
     const data = await response.json();
 
@@ -64,7 +62,7 @@ export async function POST(req: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

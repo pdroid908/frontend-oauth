@@ -9,18 +9,18 @@ export async function GET(req: Request) {
   // JIKA TIDAK ADA CODE: User baru mau login
   if (!code) {
     return NextResponse.redirect(
-      "https://pasdaoiji-backend-oauth.hf.space/auth/google",
+      "https://oauth-go-backend.vercel.app/auth/google",
     );
   }
 
   try {
     // 1. Fetch ke Go Backend
     const response = await fetch(
-      `https://pasdaoiji-backend-oauth.hf.space/auth/google/callback?code=${code}&state=${state}`,
-      { 
+      `https://oauth-go-backend.vercel.app/auth/google/callback?code=${code}&state=${state}`,
+      {
         method: "GET",
         // Penting: agar backend bisa mengirim cookie sesi jika ada
-        headers: { "Accept": "application/json" } 
+        headers: { Accept: "application/json" },
       },
     );
 
@@ -35,21 +35,21 @@ export async function GET(req: Request) {
 
     // 3. OPSI A: Jika backend memberikan token dalam JSON (seperti kode kamu sebelumnya)
     if (data.token) {
-        res.cookies.set("token", data.token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax",
-          maxAge: 3600,
-        });
+      res.cookies.set("token", data.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 3600,
+      });
     }
 
     // 4. OPSI B: Jika kamu ingin meneruskan 'set-cookie' dari Go secara utuh
     // (Gunakan ini jika Go yang mengatur nama cookie/path/secure-nya)
     const setCookieHeader = response.headers.get("set-cookie");
     if (setCookieHeader) {
-        // Parse atau langsung set jika formatnya sederhana
-        // Catatan: Edge Runtime memiliki limitasi dalam memanipulasi header set-cookie yang kompleks
-        res.headers.set("set-cookie", setCookieHeader);
+      // Parse atau langsung set jika formatnya sederhana
+      // Catatan: Edge Runtime memiliki limitasi dalam memanipulasi header set-cookie yang kompleks
+      res.headers.set("set-cookie", setCookieHeader);
     }
 
     return res;

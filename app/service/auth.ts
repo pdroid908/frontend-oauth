@@ -1,6 +1,6 @@
 import { validateRegister } from "@/app/api/security/security";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 import validator from "validator";
 
@@ -11,32 +11,37 @@ export const forgotPassword = async (email: string) => {
     throw new Error("Format email tidak valid");
   }
 
-  const response = await fetch("https://pasdaoiji-backend-oauth.hf.space/forgot-password", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
-  });
+  const response = await fetch(
+    "https://oauth-go-backend.vercel.app/forgot-password",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    },
+  );
 
   if (!response.ok) throw new Error("Gagal mengirim link reset");
   return response.json();
 };
-
 
 // Fungsi untuk kirim password baru
 export const resetPassword = async (token: string, new_password: string) => {
   // 2. Validasi password menggunakan security.ts yang sudah kamu buat
   // Ini akan memfilter karakter aneh seperti union, select, drop, dll
   const validation = validateRegister("dummyuser", new_password);
-  
+
   if (!validation.success) {
     throw new Error(validation.message);
   }
 
-  const response = await fetch("https://pasdaoiji-backend-oauth.hf.space/reset-password", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token, new_password }),
-  });
+  const response = await fetch(
+    "https://oauth-go-backend.vercel.app/reset-password",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token, new_password }),
+    },
+  );
 
   if (!response.ok) {
     const errorData = await response.json();
