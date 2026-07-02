@@ -37,20 +37,12 @@ export async function GET(req: Request) {
     if (data.token) {
       res.cookies.set("token", data.token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "lax",
         maxAge: 3600,
       });
     }
 
-    // 4. OPSI B: Jika kamu ingin meneruskan 'set-cookie' dari Go secara utuh
-    // (Gunakan ini jika Go yang mengatur nama cookie/path/secure-nya)
-    const setCookieHeader = response.headers.get("set-cookie");
-    if (setCookieHeader) {
-      // Parse atau langsung set jika formatnya sederhana
-      // Catatan: Edge Runtime memiliki limitasi dalam memanipulasi header set-cookie yang kompleks
-      res.headers.set("set-cookie", setCookieHeader);
-    }
 
     return res;
   } catch (error) {
