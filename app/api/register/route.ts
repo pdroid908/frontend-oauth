@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await fetch(
-      "http://localhost:8080/register",
+      "https://localhost:8080/register",
       {
         method: "POST",
         headers: {
