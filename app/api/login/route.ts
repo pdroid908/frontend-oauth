@@ -48,15 +48,25 @@ export async function POST(request: Request) {
     }
 
     // Jika sukses, kita harus meneruskan header 'Set-Cookie' dari Go ke browser
-   
+
     const finalResponse = NextResponse.json(result, { status: 200 });
     const setCookies = response.headers.getSetCookie();
 
     if (setCookies && setCookies.length > 0) {
-  setCookies.forEach((cookie) => {
-    finalResponse.headers.append("set-cookie", cookie);
-  });
-}
+      setCookies.forEach((cookie) => {
+        // MODIFIKASI: Menghapus atribut 'Domain' agar browser menyimpan cookie
+        // untuk domain tempat Next.js berjalan (frontend kamu)
+        let modifiedCookie = cookie.replace(/Domain=[^;]+;?/i, "");
+
+        // Pastikan SameSite=Lax atau None (None butuh Secure=true)
+        // Jika masih bermasalah di beberapa browser, pastikan Secure=true
+        if (!modifiedCookie.includes("SameSite=")) {
+          modifiedCookie += "; SameSite=Lax";
+        }
+
+        finalResponse.headers.append("set-cookie", modifiedCookie);
+      });
+    }
 
     return finalResponse;
   } catch (error) {

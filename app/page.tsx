@@ -7,7 +7,7 @@ export default function HomePage() {
     <main className="flex min-h-screen flex-col items-center justify-center p-6">
       <div className="fade-up cyber-card w-full max-w-md p-10 text-center">
         <h1 className="cyber-title text-4xl font-bold mb-8 tracking-widest">
-          CYBER_AUTH
+        AUTH_JWT_COOKIE_TOKEN
         </h1>
         
         <div className="flex flex-col gap-4">

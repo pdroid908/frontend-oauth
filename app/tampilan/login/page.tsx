@@ -74,6 +74,7 @@ export default function LoginPage() {
 
       if (res.ok) {
         showToast("success", "Success", "Login berhasil!");
+        window.location.href = '/konten-utama/dashboard';
       } else {
         showToast(
           "error",
