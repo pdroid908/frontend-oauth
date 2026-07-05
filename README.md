@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔐 Frontend OAuth
+
+A modern authentication frontend built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**.
+
+This application provides the user interface for user authentication and communicates with a dedicated Go backend. Authentication state is maintained using secure **HTTP-only cookies**, allowing users to stay signed in without exposing tokens to client-side JavaScript.
+
+## Features
+
+- User Login & Registration
+- Protected Routes
+- Session Persistence
+- Automatic Authentication Check
+- Logout
+- Responsive UI
+- API Integration
+- Form Validation
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Fetch API
+
+## Authentication Flow
+
+```text
+User
+   │
+   ▼
+Frontend
+   │
+   ▼
+Go Authentication API
+   │
+   ▼
+HTTP-only Cookie
+   │
+   ▼
+Authenticated Session
+```
+
+The frontend is responsible for:
+
+- Rendering authentication pages
+- Calling backend authentication APIs
+- Managing UI authentication state
+- Protecting authenticated pages
+- Sending authenticated requests using cookies
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+git clone https://github.com/pdroid908/frontend-oauth.git
+
+cd frontend-oauth
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8080
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Backend
 
-## Learn More
+This project communicates with:
 
-To learn more about Next.js, take a look at the following resources:
+https://github.com/pdroid908/oauth-go-backend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Putra Rohman**
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Backend & Full Stack Developer
